@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import Http404
-from django.utils.timezone import make_aware
+from django.http import Http404, HttpResponseBadRequest
+from django.utils.timezone import make_aware ,is_naive
 from django.utils.dateparse import parse_datetime
 from todo.models import Task
 
@@ -8,8 +8,18 @@ from todo.models import Task
 # Create your views here.
 def index(request):
     if request.method == 'POST':
-        task = Task(title=request.POST['title'],
-                    due_at=make_aware(parse_datetime(request.POST['due_at'])))
+        title = request.POST.get('title')
+        overview = request.POST.get('overview')
+        due_at_str = request.POST.get('due_at')
+
+        if due_at_str:
+            due_at = parse_datetime(due_at_str)
+            if due_at is not None and is_naive(due_at):
+                due_at = make_aware(due_at)
+        else:
+            due_at = None
+
+        task = Task(title=title, overview=overview, due_at=due_at)
         task.save()
 
     if request.GET.get('order') == 'due':

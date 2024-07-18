@@ -53,6 +53,16 @@ class TaskModelTestCase(TestCase):
 
         self.assertFalse(task.is_overdue(current))
 
+    def test_create_task3(self):
+        task = Task(title="task3", overview="test", due_at=None)
+        task.save()
+
+        task = Task.objects.get(pk=task.pk)
+        self.assertEqual(task.title, "task3")
+        self.assertEqual(task.overview, "test")
+        self.assertFalse(task.completed)
+        self.assertEqual(task.due_at, None)
+
 
 class TodoViewTestCase(TestCase):
     def test_index_get(self):
