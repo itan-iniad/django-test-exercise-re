@@ -16,7 +16,7 @@
         {% csrf_token %}
         <div>
             <label for="titleInput">Title:</label><br>
-            <input id="titleInput" name="title" type="text" placeholder="Input title">
+            <input id="titleInput" name="title" type="text" placeholder="Input title" required minlength="1">
         </div>
         <div>
             <label for="dueInput">Due at:</label><br>
