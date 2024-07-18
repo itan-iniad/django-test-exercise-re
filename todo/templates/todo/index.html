@@ -6,7 +6,7 @@
     <title>To Do Application</title>
     <meta charset="UTF-8">
     <meta name="author" content="INIAD">
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="{% static 'todo/index.css' %}">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
         {% csrf_token %}
         <div>
             <label for="titleInput">Title:</label><br>
-            <input id="titleInput" name="title" type="text" placeholder="Input title">
+            <input id="titleInput" name="title" type="text" placeholder="Input title" required minlength="1">
         </div>
         <div>
             <label for="overviewInput">Overview:</label>
