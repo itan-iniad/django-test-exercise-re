@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #5686c1;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+}
+
+p {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+form {
+    background-color: white;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #5686c1;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5686c1;
+}
+
+a {
+    color: #5686c1;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.text {
+    background-color: white;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.text ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.text ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
