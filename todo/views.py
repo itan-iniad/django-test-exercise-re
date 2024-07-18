@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, is_naive
 from django.utils.dateparse import parse_datetime
 from todo.models import Task
 import datetime
@@ -8,9 +8,19 @@ import datetime
 
 # Create your views here.
 def index(request):
-    if request.method == 'POST' and request.POST['title'] != '':
-        task = Task(title=request.POST['title'],
-                    due_at=make_aware(parse_datetime(request.POST['due_at'])))
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        overview = request.POST.get('overview')
+        due_at_str = request.POST.get('due_at')
+
+        if due_at_str:
+            due_at = parse_datetime(due_at_str)
+            if due_at is not None and is_naive(due_at):
+                due_at = make_aware(due_at)
+        else:
+            due_at = None
+
+        task = Task(title=title, overview=overview, due_at=due_at)
         task.save()
 
     if request.GET.get('order') == 'due':
@@ -43,6 +53,7 @@ def detail(request, task_id):
     }
     return render(request, 'todo/detail.html', context)
 
+
 # def reopen(request, task_id):
 #     try:
 #         task = Task.objects.get(pk=task_id)
@@ -51,6 +62,7 @@ def detail(request, task_id):
 #     task.completed = False
 #     task.save()
 #     return redirect('index')
+
 
 def open_and_close(request, task_id):
     try:
@@ -66,6 +78,7 @@ def open_and_close(request, task_id):
 
     return redirect(index)
 
+
 def update(request, task_id):
     try:
         task = Task.objects.get(pk=task_id)
@@ -80,7 +93,8 @@ def update(request, task_id):
         'task': task
     }
     return render(request, "todo/edit.html", context)
-  
+
+
 def delete(request, task_id):
     try:
         task = Task.objects.get(pk=task_id)
