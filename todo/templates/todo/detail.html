@@ -14,6 +14,7 @@
         <li>Posted at: {{ task.posted_at }}</li>
         {% if task.due_at %}
         <li>Due at: {{ task.due_at }}</li>
+        <li>残り日数: {{ days }}day</li>
         {% endif %}
         {% if task.completed %}
         <li>Status: Completed</li>

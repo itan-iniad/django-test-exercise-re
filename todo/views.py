@@ -3,6 +3,7 @@ from django.http import Http404
 from django.utils.timezone import make_aware
 from django.utils.dateparse import parse_datetime
 from todo.models import Task
+import datetime
 
 
 # Create your views here.
@@ -24,13 +25,21 @@ def index(request):
 
 
 def detail(request, task_id):
+    dt_now = datetime.datetime.now()
     try:
         task = Task.objects.get(pk=task_id)
     except Task.DoesNotExist:
         raise Http404("Task does not exist")
+    
+    if task:
+        year_days = (task.due_at.year - dt_now.year) * 365
+        month_days = (task.due_at.month - dt_now.month) * 30
+        day_days = task.due_at.day - dt_now.day
+        days = year_days + month_days + day_days
 
     context = {
         'task': task,
+        'days': days
     }
     return render(request, 'todo/detail.html', context)
 
