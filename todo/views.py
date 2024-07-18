@@ -43,13 +43,27 @@ def detail(request, task_id):
     }
     return render(request, 'todo/detail.html', context)
 
-def close(request, task_id):
+# def reopen(request, task_id):
+#     try:
+#         task = Task.objects.get(pk=task_id)
+#     except Task.DoesNotExist:
+#         raise Http404("Task dose not exist")
+#     task.completed = False
+#     task.save()
+#     return redirect('index')
+
+def open_and_close(request, task_id):
     try:
         task = Task.objects.get(pk=task_id)
     except Task.DoesNotExist:
         raise Http404("Task dose not exist")
-    task.completed = True
-    task.save()
+    if task.completed == False:
+        task.completed = True
+        task.save()
+    else:
+        task.completed = False
+        task.save()
+
     return redirect(index)
 
 def update(request, task_id):
@@ -65,7 +79,7 @@ def update(request, task_id):
     context = {
         'task': task
     }
-    return render (request, "todo/edit.html", context)
+    return render(request, "todo/edit.html", context)
   
 def delete(request, task_id):
     try:

@@ -1,0 +1,4 @@
+- リポジトリURL
+  - https://github.com/itan-iniad/django-test-exercise-re
+- RenderのURL
+  - https://todo-django-test-webapp.onrender.com
